@@ -4,8 +4,8 @@ CREATE  sequence sq_download;
 
 CREATE TABLE download (
   id              int8  primary key not null default nextval('sq_download'),
-  lat             int8              not null,
-  lon             int8              not null,
+  lat             float4            not null,
+  lon             float4            not null,
   app_id          text              not null,
   downloaded_at   timestamptz       not null default now()
 );

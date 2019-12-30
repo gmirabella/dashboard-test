@@ -1,5 +1,6 @@
 package com.project.dashboard.model
 
+import java.math.BigDecimal
 import java.time.Instant
 
 
@@ -11,8 +12,8 @@ data class Download(
 )
 
 data class Position(
-        val lat: Long,
-        val lon: Long
+        val lat: BigDecimal,
+        val lon: BigDecimal
 )
 
 enum class AppId(displayName : String){

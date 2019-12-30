@@ -55,8 +55,8 @@ class DownloadDaoImpl : DownloadDao {
 
         val statement = PreparedStatementCreator { con ->
             con.prepareStatement(sqlQuery).apply {
-                setLong(1, position.lat)
-                setLong(2, position.lon)
+                setBigDecimal(1, position.lat)
+                setBigDecimal(2, position.lon)
                 setString(3, appId.name)
                 setTimestamp(4, Timestamp.from(downloadedAt))
             }

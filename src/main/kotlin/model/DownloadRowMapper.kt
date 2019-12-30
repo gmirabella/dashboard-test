@@ -9,7 +9,7 @@ class DownloadRowMapper : RowMapper<Download> {
         if (rs == null) throw IllegalArgumentException("Resultset is null")
         return Download(
                 id            = rs.getLong("id"),
-                pos           = Position(rs.getLong("lat"), rs.getLong("lon")),
+                pos           = Position(rs.getBigDecimal("lat"), rs.getBigDecimal("lon")),
                 appId         = AppId.valueOf(rs.getString("app_id")) ,
                 downloadedAt = rs.getTimestamp("downloaded_at").toInstant()
         )

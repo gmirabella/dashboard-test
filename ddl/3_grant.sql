@@ -1,0 +1,15 @@
+\connect empatica;
+
+--ACCESS DB
+
+GRANT CONNECT ON DATABASE empatica TO empatica_rw;
+
+--ACCESS SCHEMA
+
+GRANT USAGE  ON SCHEMA public TO empatica_rw;
+
+--ACCESS TABLES
+
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO empatica_rw;
+
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO empatica_rw;

@@ -1,21 +1,23 @@
 package com.project.dashboard.controller
 
 import com.project.dashboard.model.Download
+import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestMapping
 
-import javax.ws.rs.*
-import javax.ws.rs.core.MediaType
-
+@RequestMapping("/downloads")
 interface DownloadController{
 
-    @GET
-    @Path("/")
-    @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    fun getAll()
+    @GetMapping("/all")
+    fun getAll() : ResponseEntity<List<Download>>
 
-    @POST
-    @Path("/")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    fun createDownload(download: Download)
+    @GetMapping("/{id}")
+    fun getById(@PathVariable id : Long) : ResponseEntity<Download>
+
+    @PostMapping("/new", consumes = [MediaType.APPLICATION_JSON_VALUE])
+    fun save(download: Download) : ResponseEntity<Long>
 
 }

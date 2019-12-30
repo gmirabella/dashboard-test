@@ -7,7 +7,7 @@ data class Download(
         val id : Long,
         val pos : Position,
         val appId: AppId,
-        val downloaded_at: Instant
+        val downloadedAt: Instant
 )
 
 data class Position(

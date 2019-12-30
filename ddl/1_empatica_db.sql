@@ -1,4 +1,4 @@
-CREATE DATABASE empatica
+CREATE DATABASE empatica;
 
 \connect empatica;
 

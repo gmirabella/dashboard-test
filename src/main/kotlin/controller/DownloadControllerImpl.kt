@@ -2,6 +2,7 @@ package com.project.dashboard.controller
 
 import com.project.dashboard.DownloadNotFoundException
 import com.project.dashboard.model.Download
+import com.project.dashboard.model.InputDownload
 import com.project.dashboard.service.DownloadService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -22,7 +23,7 @@ class DownloadControllerImpl : DownloadController{
         return ResponseEntity(download, HttpStatus.OK)
     }
 
-    override fun save(download: Download) : ResponseEntity<Long>  {
-        return ResponseEntity(downloadService.create(download), HttpStatus.OK)
+    override fun save(input: InputDownload) : ResponseEntity<Long>  {
+        return ResponseEntity(downloadService.save(input), HttpStatus.OK)
     }
 }

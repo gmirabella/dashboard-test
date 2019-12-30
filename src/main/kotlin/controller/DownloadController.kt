@@ -1,12 +1,10 @@
 package com.project.dashboard.controller
 
 import com.project.dashboard.model.Download
+import com.project.dashboard.model.InputDownload
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
 
 @RequestMapping("/downloads")
 interface DownloadController{
@@ -18,6 +16,6 @@ interface DownloadController{
     fun getById(@PathVariable id : Long) : ResponseEntity<Download>
 
     @PostMapping("/new", consumes = [MediaType.APPLICATION_JSON_VALUE])
-    fun save(download: Download) : ResponseEntity<Long>
+    fun save(@RequestBody input: InputDownload) : ResponseEntity<Long>
 
 }

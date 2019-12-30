@@ -1,6 +1,6 @@
 \connect empatica;
 
-CREATE  sequence sq_download;
+CREATE sequence sq_download;
 
 CREATE TABLE download (
   id              int8  primary key not null default nextval('sq_download'),
@@ -17,3 +17,5 @@ INSERT INTO public.download (id, lat, lon, app_id, downloaded_at) VALUES
 ,(4,  40.7127281,  -74.0060152, 'IOS_MATE'  , '2019-12-24 18:10:27.877')
 ,(5, -33.8548157,  151.2164539, 'IOS_ALLERT', '2019-12-24 18:10:27.877')
 ;
+
+select setval('sq_download', 6);

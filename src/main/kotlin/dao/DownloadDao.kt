@@ -11,5 +11,5 @@ interface DownloadDao {
 
     fun getById(id: Long) : Download?
 
-    fun save(downloadedAt : Instant, position: Position, appId: AppId) : Long
+    fun save(downloadedAt: Instant, position: Position, appId: AppId) : Long
 }

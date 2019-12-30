@@ -2,7 +2,9 @@ package com.project.dashboard.service
 
 import com.project.dashboard.dao.DownloadDao
 import com.project.dashboard.model.Download
+import com.project.dashboard.model.InputDownload
 import org.springframework.stereotype.Service
+import java.time.Instant
 import javax.inject.Inject
 
 @Service
@@ -18,7 +20,7 @@ class DownloadServiceImpl : DownloadService {
         return downloadDao.getById(id)
     }
 
-    override fun create(download: Download): Long {
-        return downloadDao.save(download.downloadedAt, download.pos, download.appId)
+    override fun save(input: InputDownload): Long {
+        return downloadDao.save(Instant.now(), input.position, input.appId)
     }
 }

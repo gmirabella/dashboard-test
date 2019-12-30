@@ -49,9 +49,9 @@ class DownloadDaoImpl : DownloadDao {
             lon,
             app_id,
             downloaded_at
-            ) values (nextval('sq_download'), ?, ?, ?, ?)
+            ) VALUES (nextval('sq_download'), ?, ?, ?, ?)
             returning id
-        """.trimIndent()
+        """
 
         val statement = PreparedStatementCreator { con ->
             con.prepareStatement(sqlQuery).apply {

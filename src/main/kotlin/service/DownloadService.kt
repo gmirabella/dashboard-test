@@ -1,6 +1,7 @@
 package com.project.dashboard.service
 
 import com.project.dashboard.model.Download
+import com.project.dashboard.model.InputDownload
 
 interface DownloadService{
 
@@ -8,5 +9,5 @@ interface DownloadService{
 
     fun getById(id: Long) : Download?
 
-    fun create(download: Download) : Long
+    fun save(input: InputDownload) : Long
 }

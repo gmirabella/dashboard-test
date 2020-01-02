@@ -1,8 +1,11 @@
-FROM node:xxx (use your development version)
-WORKDIR /client
-COPY . /client/
+FROM node:alpine
 
-RUN npm run build
+#COPY ./package.json ./
+COPY . ./
+
+RUN yarn install --no-optional
 EXPOSE 3000
 
-CMD npm start
+CMD yarn start
+
+#PROD yarn build

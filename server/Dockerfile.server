@@ -1,7 +1,7 @@
 FROM openjdk:8-jre-alpine
 WORKDIR ../home
 
-COPY /server/target/*.jar dashboard-download.jar
+COPY /target/*.jar dashboard-download.jar
 
 ENV PORT 8080
 EXPOSE 8080 5005 9010

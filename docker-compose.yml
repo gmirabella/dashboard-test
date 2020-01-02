@@ -1,15 +1,25 @@
-version: '3'
+version: '3.7'
 services:
-  api:
+  server:
     build:
-      context: .
-      dockerfile: Dockerfile.server
+      context: ""
+      dockerfile: server/Dockerfile.server
     ports:
     - "8080:8080"
     - "5005:5005"
     - "9010:9010"
     environment:
     - APP_NAME=dashboard-download
+#  client:
+#    depends_on:
+#      - server
+#    build:
+#      context: ""
+#      dockerfile: client/Dockerfile.client
+#    ports:
+#    - "3000:3000"
+#    environment:
+#    - APP_NAME=dashboard-download
 #  zookeeper:
 #    image: wurstmeister/zookeeper
 #    hostname: zookeeper

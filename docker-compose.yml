@@ -1,6 +1,8 @@
 version: '3.7'
 services:
   server:
+    hostname: server
+    container_name: server
     build:
       context: ./server
       dockerfile: Dockerfile.server
@@ -28,7 +30,7 @@ services:
 #      ZOOKEEPER_CLIENT_PORT: "2181"
 #  kafka:
 #    image: wurstmeister/kafka:2.12-2.3.0
-#    hostname: kafk
+#    hostname: kafka
 #    container_name: kafka
 #    depends_on:
 #    - zookeeper

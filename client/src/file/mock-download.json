@@ -1,0 +1,50 @@
+{
+    "downloads":
+    [
+        {
+            "id": 1,
+            "position": {
+                "lat": 41.8948021,
+                "lon": 12.4853382
+            },
+            "appId": "IOS_MATE",
+            "downloadedAt": "2019-12-24T18:10:27.877Z"
+        },
+        {
+            "id": 2,
+            "position": {
+                "lat": 37.5022354,
+                "lon": 15.0873804
+            },
+            "appId": "IOS_ALLERT",
+            "downloadedAt": "2019-12-24T18:10:27.877Z"
+        },
+        {
+            "id": 3,
+            "position": {
+                "lat": 45.4668007,
+                "lon": 9.19050026
+            },
+            "appId": "IOS_MATE",
+            "downloadedAt": "2019-12-24T18:10:27.877Z"
+        },
+        {
+            "id": 4,
+            "position": {
+                "lat": 40.7127266,
+                "lon": -74.006012
+            },
+            "appId": "IOS_MATE",
+            "downloadedAt": "2019-12-24T18:10:27.877Z"
+        },
+        {
+            "id": 5,
+            "position": {
+                "lat": -33.8548164,
+                "lon": 151.216461
+            },
+            "appId": "IOS_ALLERT",
+            "downloadedAt": "2019-12-24T18:10:27.877Z"
+        }
+    ]
+}

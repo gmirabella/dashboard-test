@@ -3,7 +3,7 @@ FROM node:alpine
 #COPY ./package.json ./
 COPY . ./
 
-RUN yarn install --no-optional
+#RUN yarn install --no-optional
 EXPOSE 3000
 
 CMD yarn start

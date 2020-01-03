@@ -11,9 +11,9 @@ data class Country(
         val name: String
 )
 
-enum class DayPart (val displayName: String) {
-    DAY_PART_0("Night"),     // Night     00 - 06
-    DAY_PART_1("Morning"),   // Morning   06 - 12
-    DAY_PART_2("Afternoon"), // Afternoon 12 - 18
-    DAY_PART_3("Evening")    // Evening   18 - 24
+enum class DayPart {
+    NIGHT,     // Night     00 - 06
+    MORNING,   // Morning   06 - 12
+    AFTERNOON, // Afternoon 12 - 18
+    EVENING    // Evening   18 - 24
 }

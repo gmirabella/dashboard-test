@@ -19,9 +19,9 @@ data class Position(
         val lon: BigDecimal
 )
 
-enum class AppId(displayName : String){
-    IOS_MATE("Ios Mate"),
-    IOS_ALLERT("Ios Allert")
+enum class AppId{
+    IOS_MATE,
+    IOS_ALLERT
 }
 
 class DownloadRowMapper : RowMapper<Download> {

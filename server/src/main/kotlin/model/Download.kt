@@ -9,6 +9,8 @@ data class Download(
         val id : Long,
         val position : Position,
         val appId: AppId,
+        val countryName: String,
+        val dayPart: DayPart,
         val downloadedAt: Instant
 )
 
@@ -28,8 +30,10 @@ class DownloadRowMapper : RowMapper<Download> {
         if (rs == null) throw IllegalArgumentException("Resultset is null")
         return Download(
                 id           = rs.getLong("id"),
-                position          = Position(rs.getBigDecimal("lat"), rs.getBigDecimal("lon")),
+                position     = Position(rs.getBigDecimal("lat"), rs.getBigDecimal("lon")),
                 appId        = AppId.valueOf(rs.getString("app_id")),
+                countryName  = rs.getString("country_name"),
+                dayPart      = DayPart.valueOf(rs.getString("day_part")),
                 downloadedAt = rs.getTimestamp("downloaded_at").toInstant()
         )
     }

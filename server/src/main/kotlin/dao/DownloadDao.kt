@@ -9,6 +9,8 @@ interface DownloadDao {
 
     fun getAll() : List<Download>
 
+    fun getByCountry(countryName: String) : List<Download>
+
     fun getById(id: Long) : Download?
 
     fun save(downloadedAt: Instant, position: Position, appId: AppId) : Long

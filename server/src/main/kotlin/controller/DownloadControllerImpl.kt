@@ -1,7 +1,9 @@
 package com.project.dashboard.controller
 
 import com.project.dashboard.DownloadNotFoundException
+import com.project.dashboard.model.Country
 import com.project.dashboard.model.Download
+import com.project.dashboard.model.DownloadList
 import com.project.dashboard.model.InputDownload
 import com.project.dashboard.service.DownloadService
 import org.springframework.http.HttpStatus
@@ -14,8 +16,8 @@ class DownloadControllerImpl : DownloadController{
 
     @Inject private lateinit var downloadService: DownloadService
 
-    override fun getAll() : ResponseEntity<List<Download>> {
-        return ResponseEntity(downloadService.getAll(), HttpStatus.OK)
+    override fun getAll(countryName: String?) : ResponseEntity<DownloadList> {
+        return ResponseEntity(downloadService.getAll(countryName), HttpStatus.OK)
     }
 
     override fun getById(id: Long): ResponseEntity<Download> {

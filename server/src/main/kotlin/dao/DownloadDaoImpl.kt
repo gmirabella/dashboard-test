@@ -1,9 +1,6 @@
 package com.project.dashboard.dao
 
-import com.project.dashboard.model.AppId
-import com.project.dashboard.model.Download
-import com.project.dashboard.model.DownloadRowMapper
-import com.project.dashboard.model.Position
+import com.project.dashboard.model.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.jdbc.core.JdbcTemplate
@@ -13,6 +10,8 @@ import org.springframework.stereotype.Repository
 import java.sql.Timestamp
 import java.time.Instant
 import javax.inject.Inject
+
+
 
 @Repository
 class DownloadDaoImpl : DownloadDao {
@@ -24,6 +23,19 @@ class DownloadDaoImpl : DownloadDao {
     override fun getAll() : List<Download> {
         log.info("--- Getting all downloads ---")
         return jdbcTemplate.query("SELECT * FROM download", DownloadRowMapper())
+    }
+
+    override fun getByCountry(countryName: String): List<Download> {
+        log.info("--- Getting downloads by Country : <$countryName> ---")
+        val sqlQuery = "SELECT * FROM download WHERE country_name = ?"
+
+        val statement = PreparedStatementCreator { con ->
+            con.prepareStatement(sqlQuery).apply {
+                setString(1, countryName)
+            }
+        }
+
+        return jdbcTemplate.query(statement, DownloadRowMapper())
     }
 
     override fun getById(id: Long): Download? {

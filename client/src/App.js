@@ -11,69 +11,85 @@ function App() {
   const [viewport, setViewport] = useState({
     latitude: 45.4668,
     longitude: 9.1905,
-    zoom: 2,
+    zoom: 3,
     width: "100vw",
     height: "100vh"
   });
 
-  const [ selected, setSelected ] = useState(null);
-  const [selectedCountry, setSelectedCountry] = useState(1);
+  const [selected, setSelected] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isChanging, setIsChanging] = useState(false);
   const [loadedDownloads, setLoadedDownloads] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState(1);
+
+  const url = `${selectedCountry!==1 ? 'http://docker.for.mac.localhost:8080/downloads?countryName='.concat(selectedCountry): 'http://docker.for.mac.localhost:8080/downloads'}`
 
 useEffect(() => {
-  axios.get('http://docker.for.mac.localhost:8080/downloads')
+  axios.get(url)
       .then(response => {
-          //console.log("res", response)
+          console.log("res", response)
           setLoadedDownloads(response.data.downloads)
           setIsLoading(false)
+          setIsChanging(false)
       }).catch(err =>
           console.log(err))
-}) 
-  return (
-  <div className="App">
-  { <ReactMapGL 
-     {...viewport}
-      mapboxApiAccessToken='pk.eyJ1IjoiZ21pcmFiZWxsYSIsImEiOiJjazR3bnp2aDQwbG5uM2twMmc3ZW84YTZyIn0.mW8BnDyD5KGNY2ARrQslwA'
-      mapStyle= 'mapbox://styles/gmirabella/ck4x1xoxp0i6k1cnnww6o7pnb'
-      onViewportChange= {viewport => { setViewport(viewport)} }
-     >
-      {loadedDownloads.map(download => (
-        <Marker
-          key       = {download.id}
-          latitude  = {download.position.lat}
-          longitude = {download.position.lon}
-        >
-          <button 
-            className = "marker-btn" 
-            onClick   = {(event) => { 
-              event.preventDefault() 
-              setSelected(download) 
-            }} > 
-            <img src= "/flags-pin-svgrepo-com.svg" alt= "Download Empatica Icon" />
-          </button>
-        </Marker>
-      ))}
-      {selected ? (
-      <Popup 
-        latitude  = {selected.position.lat} 
-        longitude = {selected.position.lon}
-        onClose = {() => {setSelected(null)}}>
-        <div align="left">
-        <h3>download</h3>
-        <h5> id: {selected.id}
-        <br/> country: {selected.countryName}
-        <br/> day: {moment(selected.downloadedAt).format('YYYY-MM-DD')}
-        <br/> dayPart: {selected.dayPart}
-        <br/> hour: {moment(selected.downloadedAt).format("HH:mm")}
-        </h5>
-        </div>
-      </Popup> ): null}
-    </ReactMapGL> }} }
-    <Dashboard
-        selectedCountry={selectedCountry}
-      /> 
-  </div>
-  );
+},[isChanging]) 
+
+let content = <div className="lds-ripple"><div></div><div></div></div>
+if (!isLoading) {
+  
+  content = (
+
+<div className="App">
+{ <ReactMapGL 
+   {...viewport}
+    mapboxApiAccessToken='pk.eyJ1IjoiZ21pcmFiZWxsYSIsImEiOiJjazR3bnp2aDQwbG5uM2twMmc3ZW84YTZyIn0.mW8BnDyD5KGNY2ARrQslwA'
+    mapStyle= 'mapbox://styles/gmirabella/ck5006q7m2x4l1cqg4afoozeb'
+    onViewportChange= {viewport => { setViewport(viewport)} } 
+   >
+
+    {loadedDownloads.map(download => (
+      <Marker
+        key       = {download.id}
+        latitude  = {download.position.lat}
+        longitude = {download.position.lon}
+      >
+        <button 
+          className = "marker-btn" 
+          onClick   = {(event) => { 
+            event.preventDefault() 
+            setSelected(download) 
+          }} > 
+          <img src= "/marker.svg" alt= "Download Empatica Icon" />
+        </button>
+      </Marker>
+    ))}}
+    {selected ? (
+    <Popup 
+      latitude  = {selected.position.lat} 
+      longitude = {selected.position.lon}
+      onClose = {() => {setSelected(null)}}>
+      <div>
+      <p><strong>id:</strong> {selected.id}
+      <br/><strong>country:</strong> {selected.countryName}
+      <br/><strong>day: </strong>{moment(selected.downloadedAt).format('YYYY-MM-DD')}
+      <br/><strong>dayPart:</strong> {selected.dayPart}
+      <br/><strong>appId: </strong>{selected.appId}
+      </p>
+      </div>
+    </Popup> ): null}
+  </ReactMapGL> }} }
+  <Dashboard 
+      setIsChanging      = {setIsChanging}
+      setSelectedCountry = {setSelectedCountry}
+  />
+  {console.log("aaaa", isChanging)} 
+</div>
+);
+  } else if (!isLoading && (!loadedDownloads || loadedDownloads.length === 0)) {
+    content = (<div className="alert"><strong>Error!</strong> Could not fetch any data</div>)
+  }
+
+  return content;
 };
 export default App;

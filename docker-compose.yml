@@ -12,15 +12,15 @@ services:
     - "9010:9010"
     environment:
     - APP_NAME=dashboard-download
-  client:
-    depends_on:
-    - server
-    build:
-      context: ./client
-      dockerfile: Dockerfile.client
-    ports:
-    - "3000:3000"
-#  zookeeper:
+
+#  zookeeper:client:
+      #    depends_on:
+      #    - server
+      #    build:
+      #      context: ./client
+      #      dockerfile: Dockerfile.client
+    #    ports:
+    #    - "3000:3000"
 #    image: wurstmeister/zookeeper
 #    hostname: zookeeper
 #    container_name: zookeeper

@@ -1,5 +1,6 @@
 package com.project.dashboard.controller
 
+import com.project.dashboard.model.DayPart
 import com.project.dashboard.model.Download
 import com.project.dashboard.model.DownloadList
 import com.project.dashboard.model.InputDownload
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 interface DownloadController{
 
     @GetMapping("/downloads")
-    fun getAll(@RequestParam(required = false) countryName: String?) : ResponseEntity<DownloadList>
+    fun getAll(@RequestParam(required = false) countryName: String?, dayPart: DayPart?) : ResponseEntity<DownloadList>
 
     @GetMapping("/downloads/{id}")
     fun getById(@PathVariable id : Long) : ResponseEntity<Download>

@@ -9,9 +9,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 
-
-
-
 @SpringBootApplication
 class DashboardApplication
 

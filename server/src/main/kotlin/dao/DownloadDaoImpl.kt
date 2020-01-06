@@ -11,8 +11,6 @@ import java.sql.Timestamp
 import java.time.Instant
 import javax.inject.Inject
 
-
-
 @Repository
 class DownloadDaoImpl : DownloadDao {
 
@@ -38,6 +36,19 @@ class DownloadDaoImpl : DownloadDao {
         return jdbcTemplate.query(statement, DownloadRowMapper())
     }
 
+    override fun getByDayPart(dayPart: DayPart): List<Download> {
+        log.info("--- Getting downloads by DayPart : <${dayPart.name}> ---")
+        val sqlQuery = "SELECT * FROM download WHERE day_part = ?"
+
+        val statement = PreparedStatementCreator { con ->
+            con.prepareStatement(sqlQuery).apply {
+                setString(1, dayPart.name)
+            }
+        }
+
+        return jdbcTemplate.query(statement, DownloadRowMapper())
+    }
+
     override fun getById(id: Long): Download? {
         log.info("---Getting download by id : <$id> ---")
         val sqlQuery = "SELECT * FROM download WHERE id = ?"
@@ -51,7 +62,7 @@ class DownloadDaoImpl : DownloadDao {
         return jdbcTemplate.query(statement, DownloadRowMapper()).firstOrNull()
     }
 
-    override fun save(downloadedAt: Instant, position: Position, appId: AppId): Long {
+    override fun save(downloadedAt: Instant, position: Position, appId: AppId, countryName: String, dayPart: DayPart): Long {
         log.info("--- Saving download from <$appId> with lat, lon = <${position.lat}, ${position.lon}> ---")
 
         val sqlQuery = """
@@ -60,8 +71,10 @@ class DownloadDaoImpl : DownloadDao {
             lat,
             lon,
             app_id,
+            country_name,
+            day_part,
             downloaded_at
-            ) VALUES (nextval('sq_download'), ?, ?, ?, ?)
+            ) VALUES (nextval('sq_download'), ?, ?, ?, ?, ?, ?)
             returning id
         """
 
@@ -70,7 +83,9 @@ class DownloadDaoImpl : DownloadDao {
                 setBigDecimal(1, position.lat)
                 setBigDecimal(2, position.lon)
                 setString(3, appId.name)
-                setTimestamp(4, Timestamp.from(downloadedAt))
+                setString(4, countryName)
+                setString(5, dayPart.name)
+                setTimestamp(6, Timestamp.from(downloadedAt))
             }
         }
 

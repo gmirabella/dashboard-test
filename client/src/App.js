@@ -21,8 +21,14 @@ function App() {
   const [isChanging, setIsChanging] = useState(false);
   const [loadedDownloads, setLoadedDownloads] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState(1);
+  const [selectedDayParts, setSelectedDayParts] = useState(1);
+  const [url, setUrl] = useState('http://docker.for.mac.localhost:8080/downloads')
 
-  const url = `${selectedCountry!==1 ? 'http://docker.for.mac.localhost:8080/downloads?countryName='.concat(selectedCountry): 'http://docker.for.mac.localhost:8080/downloads'}`
+useEffect(() =>{
+  if(selectedCountry!==1) setUrl('http://docker.for.mac.localhost:8080/downloads?countryName='.concat(selectedCountry))
+  else if(selectedDayParts!==1) setUrl('http://docker.for.mac.localhost:8080/downloads?dayPart='.concat(selectedDayParts))
+},
+)
 
 useEffect(() => {
   axios.get(url)
@@ -82,6 +88,7 @@ if (!isLoading) {
   <Dashboard 
       setIsChanging      = {setIsChanging}
       setSelectedCountry = {setSelectedCountry}
+      setSelectedDayParts = {setSelectedDayParts}
   />
   {console.log("aaaa", isChanging)} 
 </div>

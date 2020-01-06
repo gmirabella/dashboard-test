@@ -8,7 +8,6 @@ const Dashboard = props => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadedCountries, setLoadedCountries] = useState([]);
   const [loadedDayParts, setLoadedDayParts] = useState([]);
-  const [selectedDayParts, setSelectedDayParts] = useState(1);
   
   useEffect(() => {
     axios.get('http://docker.for.mac.localhost:8080/filters')
@@ -22,7 +21,7 @@ const Dashboard = props => {
   }, []); 
 
   let content = <div>Loading data...</div>
-  if (!isLoading && loadedCountries && loadedCountries.length > 0) {
+  if (!isLoading && loadedCountries && loadedCountries.length > 0 && loadedDayParts && loadedDayParts.length >0) {
     content = (
       <div className="dashboard">
       <br/>
@@ -47,13 +46,33 @@ const Dashboard = props => {
         
         }
       />
-    
+
       <br/>
       <br/>
-      <span className="dashboard__output"> Filter by Day Parts: </span> 
+      <h1> Filter by Day Parts: </h1> 
+      <Dropdown 
+        fluid
+        search
+        selection
+        placeholder="Select dayPart"
+        clearable 
+        options={loadedDayParts.map(part => {
+            return {
+                key: part,
+                text: part,
+                value: part
+            }
+        })} 
+        onChange={async (e, {value }) => {
+          props.setSelectedDayParts(value)
+          props.setIsChanging(true)
+        }
+        
+        }
+      />
       </div>
     );
-  } else if (!isLoading && (!loadedCountries || loadedCountries.length === 0)) {
+  } else if (!isLoading && (!loadedCountries || loadedCountries.length === 0) && (!loadedDayParts || loadedDayParts.length === 0)) {
     content = <p><strong>Error!</strong> Could not fetch any data</p>
   }
   return content;

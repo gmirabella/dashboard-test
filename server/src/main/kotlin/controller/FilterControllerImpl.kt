@@ -4,10 +4,10 @@ import com.project.dashboard.model.Filters
 import com.project.dashboard.service.FilterService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.RestController
 import javax.inject.Inject
 
-@Controller
+@RestController
 class FilterControllerImpl : FilterController{
 
     @Inject private lateinit var filterService: FilterService

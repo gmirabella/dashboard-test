@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Select, Dropdown } from 'semantic-ui-react'
+import { Dropdown, Header, Image } from 'semantic-ui-react'
 import './Dashboard.css';
 
 const Dashboard = props => {
@@ -8,14 +8,16 @@ const Dashboard = props => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadedCountries, setLoadedCountries] = useState([]);
   const [loadedDayParts, setLoadedDayParts] = useState([]);
+  const [loadedPeriod, setLoadedPeriod] = useState([]);
   
   useEffect(() => {
     axios.get('http://docker.for.mac.localhost:8080/filters')
         .then(response => {
             //console.log("res", response)
-            setLoadedCountries(response.data.countries)
-            setLoadedDayParts(response.data.dayParts)
-            setIsLoading(false)
+            setLoadedCountries(response.data.countries);
+            setLoadedDayParts(response.data.dayParts);
+            setLoadedPeriod(response.data.periodDays);
+            setIsLoading(false);
         }).catch(err =>
             console.log(err))
   }, []); 
@@ -23,9 +25,11 @@ const Dashboard = props => {
   let content = <div>Loading data...</div>
   if (!isLoading && loadedCountries && loadedCountries.length > 0 && loadedDayParts && loadedDayParts.length >0) {
     content = (
-      <div className="dashboard">
-      <br/>
-      <h1> Downloads by County: </h1> 
+<div className="dashboard">
+    < Header as='h3'>
+       <Image circular src='../download-flat.png'/>Empatica Downloads
+    </Header>
+      <h1> Filter by Country: </h1> 
       <Dropdown 
         fluid
         search
@@ -39,12 +43,10 @@ const Dashboard = props => {
                 value: country.name
             }
         })} 
-        onChange={async (e, {value }) => {
+        onChange={(e, {value }) => {
           props.setSelectedCountry(value)
           props.setIsChanging(true)
-        }
-        
-        }
+        }}
       />
 
       <br/>
@@ -52,7 +54,6 @@ const Dashboard = props => {
       <h1> Filter by Day Parts: </h1> 
       <Dropdown 
         fluid
-        search
         selection
         placeholder="Select dayPart"
         clearable 
@@ -63,14 +64,34 @@ const Dashboard = props => {
                 value: part
             }
         })} 
-        onChange={async (e, {value }) => {
+        onChange={(e, {value }) => {
           props.setSelectedDayParts(value)
           props.setIsChanging(true)
-        }
-        
-        }
+        }}
       />
-      </div>
+
+      <br/>
+      <br/>
+      <h1> Filter by Period: </h1> 
+      <Dropdown 
+        fluid
+        selection
+        placeholder="Select period"
+        clearable 
+        options={loadedPeriod.map(period => {
+            return {
+                key: period,
+                text: period,
+                value: period
+            }
+        })} 
+        onChange={(e, {value }) => {
+          props.setSelectedPeriod(value)
+          props.setIsChanging(true)
+        }}
+      />
+      <Header align="left" sub >total downloads : {props.loadedDownloads.count}</Header>
+</div>
     );
   } else if (!isLoading && (!loadedCountries || loadedCountries.length === 0) && (!loadedDayParts || loadedDayParts.length === 0)) {
     content = <p><strong>Error!</strong> Could not fetch any data</p>

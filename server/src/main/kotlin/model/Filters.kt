@@ -3,7 +3,8 @@ package com.project.dashboard.model
 
 data class Filters(
         val countries: List<Country>,
-        val dayParts: List<DayPart>
+        val dayParts: List<DayPart>,
+        val periodDays: List<PeriodDays>
 )
 
 data class Country(
@@ -16,4 +17,10 @@ enum class DayPart {
     MORNING,   // Morning   06 - 12
     AFTERNOON, // Afternoon 12 - 18
     EVENING    // Evening   18 - 24
+}
+
+enum class PeriodDays (val days: Long) {
+    LAST_WEEK  (7),
+    LAST_MONTH (30),
+    LAST_YEAR  (365);
 }

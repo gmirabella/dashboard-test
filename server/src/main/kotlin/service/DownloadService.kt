@@ -1,16 +1,12 @@
 package com.project.dashboard.service
 
-import com.project.dashboard.model.DayPart
-import com.project.dashboard.model.Download
-import com.project.dashboard.model.DownloadList
-import com.project.dashboard.model.InputDownload
+import com.project.dashboard.model.*
 import java.time.Instant
+import java.time.LocalDateTime
 
 interface DownloadService{
 
-    fun getAll(countryName: String?, dayPart: DayPart?) : DownloadList
-
-    fun getById(id: Long) : Download?
+    fun getAll(countryName: String?, dayPart: DayPart?, period: PeriodDays?) : DownloadList
 
     fun save(now: Instant, input: InputDownload) : Long
 }

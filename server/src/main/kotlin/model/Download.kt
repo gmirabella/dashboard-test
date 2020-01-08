@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.RowMapper
 import java.math.BigDecimal
 import java.sql.ResultSet
 import java.time.Instant
+import java.time.LocalDateTime
 
 data class Download(
         val id : Long,

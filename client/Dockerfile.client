@@ -1,11 +1,10 @@
 FROM node:alpine
 
-#COPY ./package.json ./
-COPY . ./
+COPY ./package.json ./
+#COPY . ./
 
-#RUN yarn install --no-optional
+RUN yarn install -g --no-optional 
+RUN yarn global add react-scripts@3.0.1
 EXPOSE 3000
 
-CMD yarn start
-
-#PROD yarn build
+CMD ["yarn" "start"]

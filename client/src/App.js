@@ -5,13 +5,12 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import ReactMapGL, {Popup, Marker} from 'react-map-gl';
 import moment from 'moment';
 import Dashboard from './components/Dashboard';
-//import * as points from "./file/mock-download.json"
 
 function App() {
   const [viewport, setViewport] = useState({
-    latitude: 45.4668,
-    longitude: 9.1905,
-    zoom: 3,
+    latitude: 38.707,
+    longitude: -9.134,
+    zoom: 2.5,
     width: "100vw",
     height: "100vh"
   });
@@ -20,26 +19,26 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isChanging, setIsChanging] = useState(false);
   const [loadedDownloads, setLoadedDownloads] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(1);
-  const [selectedDayParts, setSelectedDayParts] = useState(1);
-  const [url, setUrl] = useState('http://docker.for.mac.localhost:8080/downloads')
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedDayParts, setSelectedDayParts] = useState("");
+  const [selectedPeriod, setSelectedPeriod] = useState("");
+  const [url, setUrl] = useState('http://localhost:8080/downloads');
 
 useEffect(() =>{
-  if(selectedCountry!==1) setUrl('http://docker.for.mac.localhost:8080/downloads?countryName='.concat(selectedCountry))
-  else if(selectedDayParts!==1) setUrl('http://docker.for.mac.localhost:8080/downloads?dayPart='.concat(selectedDayParts))
-},
-)
+  setUrl('http://localhost:8080/downloads?countryName='+selectedCountry+'&dayPart='+selectedDayParts+'&period='+selectedPeriod);
+},);
 
 useEffect(() => {
+  //console.log(url)
   axios.get(url)
       .then(response => {
-          console.log("res", response)
-          setLoadedDownloads(response.data.downloads)
-          setIsLoading(false)
-          setIsChanging(false)
+         // console.log("res", response)
+          setLoadedDownloads(response.data);
+          setIsLoading(false);
+          setIsChanging(false);
       }).catch(err =>
-          console.log(err))
-},[isChanging]) 
+          console.log(err));
+},[isChanging]);
 
 let content = <div className="lds-ripple"><div></div><div></div></div>
 if (!isLoading) {
@@ -53,8 +52,7 @@ if (!isLoading) {
     mapStyle= 'mapbox://styles/gmirabella/ck5006q7m2x4l1cqg4afoozeb'
     onViewportChange= {viewport => { setViewport(viewport)} } 
    >
-
-    {loadedDownloads.map(download => (
+    {loadedDownloads.downloads.map(download => (
       <Marker
         key       = {download.id}
         latitude  = {download.position.lat}
@@ -66,7 +64,7 @@ if (!isLoading) {
             event.preventDefault() 
             setSelected(download) 
           }} > 
-          <img src= "/marker.svg" alt= "Download Empatica Icon" />
+          <img src= "/marker.svg" alt= "Position Icon" />
         </button>
       </Marker>
     ))}}
@@ -84,13 +82,15 @@ if (!isLoading) {
       </p>
       </div>
     </Popup> ): null}
-  </ReactMapGL> }} }
+  </ReactMapGL> }
   <Dashboard 
-      setIsChanging      = {setIsChanging}
-      setSelectedCountry = {setSelectedCountry}
+      setIsChanging       = {setIsChanging}
+      setSelectedCountry  = {setSelectedCountry}
       setSelectedDayParts = {setSelectedDayParts}
+      setSelectedPeriod   = {setSelectedPeriod}
+      loadedDownloads     = {loadedDownloads}
   />
-  {console.log("aaaa", isChanging)} 
+
 </div>
 );
   } else if (!isLoading && (!loadedDownloads || loadedDownloads.length === 0)) {

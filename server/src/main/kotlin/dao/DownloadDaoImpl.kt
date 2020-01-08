@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.RowMapper
 import org.springframework.stereotype.Repository
 import java.sql.Timestamp
 import java.time.Instant
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 @Repository
@@ -23,6 +24,19 @@ class DownloadDaoImpl : DownloadDao {
         return jdbcTemplate.query("SELECT * FROM download", DownloadRowMapper())
     }
 
+    override fun getByCountryAndDayPart(countryName: String, dayPart: DayPart): List<Download> {
+        log.info("--- Getting all downloads by Country : <$countryName> and by DayPart : <${dayPart.name}>---")
+        val sqlQuery = "SELECT * FROM download WHERE country_name = ? AND day_part = ?"
+
+        val statement = PreparedStatementCreator { con ->
+            con.prepareStatement(sqlQuery).apply {
+                setString(1, countryName)
+                setString(2, dayPart.name)
+            }
+        }
+        return jdbcTemplate.query(statement, DownloadRowMapper())
+    }
+
     override fun getByCountry(countryName: String): List<Download> {
         log.info("--- Getting downloads by Country : <$countryName> ---")
         val sqlQuery = "SELECT * FROM download WHERE country_name = ?"
@@ -32,7 +46,6 @@ class DownloadDaoImpl : DownloadDao {
                 setString(1, countryName)
             }
         }
-
         return jdbcTemplate.query(statement, DownloadRowMapper())
     }
 
@@ -45,21 +58,7 @@ class DownloadDaoImpl : DownloadDao {
                 setString(1, dayPart.name)
             }
         }
-
         return jdbcTemplate.query(statement, DownloadRowMapper())
-    }
-
-    override fun getById(id: Long): Download? {
-        log.info("---Getting download by id : <$id> ---")
-        val sqlQuery = "SELECT * FROM download WHERE id = ?"
-
-        val statement = PreparedStatementCreator { con ->
-            con.prepareStatement(sqlQuery).apply {
-                setLong(1, id)
-            }
-        }
-
-        return jdbcTemplate.query(statement, DownloadRowMapper()).firstOrNull()
     }
 
     override fun save(downloadedAt: Instant, position: Position, appId: AppId, countryName: String, dayPart: DayPart): Long {

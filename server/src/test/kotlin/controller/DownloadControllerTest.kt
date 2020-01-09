@@ -2,7 +2,6 @@ package controller
 
 import com.cuebiq.audiencebuilder.container.KPostgresSQLContainer
 import com.project.dashboard.DashboardApplication
-import config.TestAppConfiguration
 import io.restassured.RestAssured
 import io.restassured.http.ContentType
 import io.restassured.module.kotlin.extensions.Given
@@ -25,7 +24,7 @@ import org.springframework.test.context.junit4.SpringRunner
 
 @RunWith(SpringRunner::class)
 @SpringBootTest(classes = [DashboardApplication::class], webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@ContextConfiguration(classes = [TestAppConfiguration::class], initializers = [DownloadControllerTest.Initializer::class])
+@ContextConfiguration(initializers = [DownloadControllerTest.Initializer::class])
 @ActiveProfiles("test")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class DownloadControllerTest {

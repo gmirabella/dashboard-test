@@ -26,7 +26,7 @@ function App() {
 
 useEffect(() =>{
   setUrl('http://localhost:8080/downloads?countryName='+selectedCountry+'&dayPart='+selectedDayParts+'&period='+selectedPeriod);
-},);
+},[selectedCountry, selectedDayParts, selectedPeriod]);
 
 useEffect(() => {
   //console.log(url)
@@ -44,14 +44,13 @@ let content = <div className="lds-ripple"><div></div><div></div></div>
 if (!isLoading) {
   
   content = (
-
 <div className="App">
-{ <ReactMapGL 
-   {...viewport}
+  { <ReactMapGL 
+    {...viewport}
     mapboxApiAccessToken='pk.eyJ1IjoiZ21pcmFiZWxsYSIsImEiOiJjazR3bnp2aDQwbG5uM2twMmc3ZW84YTZyIn0.mW8BnDyD5KGNY2ARrQslwA'
     mapStyle= 'mapbox://styles/gmirabella/ck5006q7m2x4l1cqg4afoozeb'
     onViewportChange= {viewport => { setViewport(viewport)} } 
-   >
+    >
     {loadedDownloads.downloads.map(download => (
       <Marker
         key       = {download.id}
@@ -64,25 +63,26 @@ if (!isLoading) {
             event.preventDefault() 
             setSelected(download) 
           }} > 
-          <img src= "/marker.svg" alt= "Position Icon" />
+          <img src= "/marker.svg" alt= "Marker Icon" />
         </button>
       </Marker>
-    ))}}
+    ))}
+
     {selected ? (
-    <Popup 
-      latitude  = {selected.position.lat} 
-      longitude = {selected.position.lon}
-      onClose = {() => {setSelected(null)}}>
-      <div>
-      <p><strong>id:</strong> {selected.id}
-      <br/><strong>country:</strong> {selected.countryName}
-      <br/><strong>day: </strong>{moment(selected.downloadedAt).format('YYYY-MM-DD')}
-      <br/><strong>dayPart:</strong> {selected.dayPart}
-      <br/><strong>appId: </strong>{selected.appId}
-      </p>
-      </div>
-    </Popup> ): null}
-  </ReactMapGL> }
+      <Popup 
+        latitude  = {selected.position.lat} 
+        longitude = {selected.position.lon}
+        onClose = {() => {setSelected(null)}}>
+        <div>
+          <p><strong>id:</strong> {selected.id}
+            <br/><strong>country:</strong> {selected.countryName}
+            <br/><strong>day: </strong>{moment(selected.downloadedAt).format('YYYY-MM-DD')}
+            <br/><strong>dayPart:</strong> {selected.dayPart}
+            <br/><strong>appId: </strong>{selected.appId}
+          </p>
+        </div>
+      </Popup> ): null}
+    </ReactMapGL> }
   <Dashboard 
       setIsChanging       = {setIsChanging}
       setSelectedCountry  = {setSelectedCountry}

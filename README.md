@@ -1,5 +1,5 @@
 # dashboard-download project
-Web Dashboard that show a real time overview of mobile apps
+Web Dashboard that show a real time overview of mobile  downloads
 
 ## Installation
 
@@ -16,17 +16,17 @@ If you are in a hurry, you can skip tests:
 
 ```
 
-## Documentation Open Api
-
-```
-http://localhost:8080/swagger-ui.html
-
-```
-
 ## Application
 
 ```
 http://localhosts:3000
+
+```
+
+## Documentation
+
+```
+http://localhost:8080/swagger-ui.html
 
 ```
 

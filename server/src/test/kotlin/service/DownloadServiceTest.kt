@@ -1,30 +1,33 @@
 package service
 
 import com.project.dashboard.dao.DownloadDao
-import com.project.dashboard.model.DayPart
-import com.project.dashboard.model.DownloadList
-import com.project.dashboard.model.PeriodDays
+import com.project.dashboard.model.*
 import com.project.dashboard.service.DownloadServiceImpl
+import com.project.dashboard.service.FilterService
+import com.project.dashboard.utils.DayPartConverter
 import model.DownloadSamples
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
+import java.time.LocalTime
 import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 
 @RunWith(SpringJUnit4ClassRunner::class)
 class DownloadServiceTest{
 
-    @Mock
-    private lateinit var mockDownloadDao: DownloadDao
+    @Mock private lateinit var mockDownloadDao: DownloadDao
 
-    @InjectMocks
-    private lateinit var mockDownloadService: DownloadServiceImpl
+    @Mock private lateinit var mockFilterService: FilterService
+
+    @InjectMocks private lateinit var mockDownloadService: DownloadServiceImpl
 
     @Before
     fun setUp() {
@@ -84,5 +87,40 @@ class DownloadServiceTest{
         assertNotNull(result)
         assertEquals(result, DownloadList(0, emptyList()))
     }
+
+    @Test
+    fun saveDownloads(){
+        `when`(mockDownloadDao.save(DownloadSamples.test_1.downloadedAt,
+                DownloadSamples.test_1.position,
+                DownloadSamples.test_1.appId,
+                DownloadSamples.test_1.countryName,
+                DownloadSamples.test_1.dayPart)
+        ).thenReturn(DownloadSamples.test_1.id)
+
+        `when`(mockFilterService.calculateCountryFromLatLog(DownloadSamples.test_1.position.lat.toString(), DownloadSamples.test_1.position.lon.toString())).thenReturn(Country("it", "ITALY"))
+
+        val result = mockDownloadService.save(DownloadSamples.test_1.downloadedAt, InputDownload(DownloadSamples.test_1.position, DownloadSamples.test_1.appId))
+        assertNotNull(result)
+
+    }
+
+    @Test
+    fun saveDownloadsError(){
+        `when`(mockDownloadDao.save(DownloadSamples.test_1.downloadedAt,
+                DownloadSamples.test_1.position,
+                DownloadSamples.test_1.appId,
+                DownloadSamples.test_1.countryName,
+                DownloadSamples.test_1.dayPart)
+        ).thenReturn(DownloadSamples.test_1.id)
+
+        `when`(mockFilterService.calculateCountryFromLatLog(DownloadSamples.test_1.position.lat.toString(), DownloadSamples.test_1.position.lon.toString())).thenReturn(Country("fr", "FRANCE"))
+
+
+        val result = mockDownloadService.save(DownloadSamples.test_1.downloadedAt, InputDownload(DownloadSamples.test_1.position, DownloadSamples.test_1.appId))
+        assertNotEquals(result, DownloadSamples.test_1.id)
+
+    }
+
+    private fun <T> any(): T = Mockito.any<T>()
 
 }

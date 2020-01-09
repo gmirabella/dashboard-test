@@ -45,14 +45,6 @@ class FilterServiceImpl : FilterService {
         }
     }
 
-    override fun calculateDayPart(hour: LocalTime): DayPart {
-        return if (hour.isBefore(LocalTime.parse("00:00")) && hour.isBefore(LocalTime.parse("06:00"))) DayPart.NIGHT
-        else if (hour.isAfter(LocalTime.parse("06:00")) && hour.isBefore(LocalTime.parse("12:00"))) DayPart.MORNING
-        else if (hour.isAfter(LocalTime.parse("12:00")) && hour.isBefore(LocalTime.parse("18:00"))) DayPart.AFTERNOON
-        else DayPart.EVENING
-
-    }
-
     private fun generateCountry(): List<Country> {
         val countryCodes = Locale.getISOCountries()
 

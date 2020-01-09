@@ -2,6 +2,7 @@ package com.project.dashboard.service
 
 import com.project.dashboard.dao.DownloadDao
 import com.project.dashboard.model.*
+import com.project.dashboard.utils.DayPartConverter
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.time.Instant
@@ -34,7 +35,7 @@ class DownloadServiceImpl : DownloadService {
     override fun save(now: Instant,input: InputDownload): Long {
 
         val country = filterService.calculateCountryFromLatLog(input.position.lat.toString(), input.position.lon.toString())
-        val dayPart = filterService.calculateDayPart(LocalTime.now())
+        val dayPart = DayPartConverter.parse(LocalTime.now())
 
         return downloadDao.save(now, input.position, input.appId, country.name, dayPart)
     }

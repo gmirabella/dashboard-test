@@ -13,5 +13,4 @@ interface FilterService{
 
     fun calculateCountryFromLatLog(lat: String, lon: String) : Country
 
-    fun calculateDayPart(hour: LocalTime) : DayPart
 }

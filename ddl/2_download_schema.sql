@@ -1,4 +1,4 @@
-\connect empatica;
+\connect dashboard;
 
 CREATE sequence sq_download;
 

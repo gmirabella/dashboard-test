@@ -1,9 +1,9 @@
-CREATE DATABASE empatica;
+CREATE DATABASE dashboard;
 
-\connect empatica;
+\connect dashboard;
 
 CREATE EXTENSION btree_gist;
 
-CREATE ROLE empatica_rw LOGIN PASSWORD 'test';
+CREATE ROLE dashboard_rw LOGIN PASSWORD 'test';
 
-GRANT connect on database "empatica" to empatica_rw;
+GRANT connect on database "dashboard" to dashboard_rw;

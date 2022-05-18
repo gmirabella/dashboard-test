@@ -25,7 +25,7 @@ const Dashboard = props => {
   if (!isLoading && loadedCountries && loadedCountries.length > 0 && loadedDayParts && loadedDayParts.length >0) {
     content = (
       <div className="dashboard">
-        < Header as='h3'><Image circular src='../download-flat.png'/>Empatica Downloads</Header>
+        < Header as='h3'><Image circular src='../download-flat.png'/>Dashboard Downloads</Header>
         <h1> Filter by Country: </h1> 
           <Dropdown 
             fluid

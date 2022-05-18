@@ -20,6 +20,7 @@ services:
       dockerfile: Dockerfile.client
     ports:
     - "3000:3000"
+    stdin_open: true
   db:
     image: postgres
     restart: always

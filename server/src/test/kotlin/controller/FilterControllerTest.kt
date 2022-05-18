@@ -27,8 +27,8 @@ import org.springframework.test.context.junit4.SpringRunner
 class FilterControllerTest {
     companion object {
         const val port = 8081
-        var container = KPostgresSQLContainer(baseDir = "ddl").withDatabaseName("empatica")
-                .withUsername("empatica_rw")
+        var container = KPostgresSQLContainer(baseDir = "ddl").withDatabaseName("dashboard")
+                .withUsername("dashboard_rw")
                 .withPassword("test")!!
 
         @BeforeClass

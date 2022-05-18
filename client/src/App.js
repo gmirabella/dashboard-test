@@ -48,7 +48,7 @@ if (!isLoading) {
   { <ReactMapGL 
     {...viewport}
     mapboxApiAccessToken='pk.eyJ1IjoiZ21pcmFiZWxsYSIsImEiOiJjazR3bnp2aDQwbG5uM2twMmc3ZW84YTZyIn0.mW8BnDyD5KGNY2ARrQslwA'
-    mapStyle= 'mapbox://styles/gmirabella/ck5006q7m2x4l1cqg4afoozeb'
+    mapStyle= 'mapbox://styles/gmirabella/ck4x1i4350hoj1cp91fzdz3mb'
     onViewportChange= {viewport => { setViewport(viewport)} } 
     >
     {loadedDownloads.downloads.map(download => (

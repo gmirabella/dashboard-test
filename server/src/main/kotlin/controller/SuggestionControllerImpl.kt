@@ -13,7 +13,8 @@ class SuggestionControllerImpl : SuggestionController{
     @Inject private lateinit var suggestionService: SuggestionService
 
     override fun getAll(countryName: String?, interestType: InterestType?) : ResponseEntity<SuggestionList> {
-        return ResponseEntity(suggestionService.getAll(countryName, interestType), HttpStatus.OK)
+        //return ResponseEntity(suggestionService.getAll(countryName, interestType), HttpStatus.OK)
+        TODO("Not yet implemented")
     }
 
 }

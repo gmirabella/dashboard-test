@@ -41,13 +41,13 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-context</artifactId>
-            <version>2.1.0.RELEASE</version>
+            <version>4.0.0</version>
         </dependency>
+
 
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
-            <version>2.9.7</version>
         </dependency>
 
         <!-- https://mvn000repository.com/artifact/org.json/json -->
@@ -63,27 +63,16 @@
             <version>1</version>
         </dependency>
 
-        <!-- swagger -->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-core</artifactId>
-            <version>1.1.44</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.1.49</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.github.classgraph</groupId>
-                    <artifactId>classgraph</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
         <dependency>
             <groupId>io.github.classgraph</groupId>
             <artifactId>classgraph</artifactId>
-            <version>4.8.44</version>
+            <version>4.8.156</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.0.4</version>
         </dependency>
 
         <!-- Runtime -->
@@ -124,22 +113,6 @@
 
         <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
 
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <version>${restassured.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured-all</artifactId>
-            <version>${restassured.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/io.rest-assured/kotlin-extensions -->
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>kotlin-extensions</artifactId>
-            <version>4.1.1</version>
-        </dependency>
 
         <dependency>
             <groupId>org.testcontainers</groupId>

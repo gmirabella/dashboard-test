@@ -26,6 +26,7 @@ function App() {
 
 useEffect(() =>{
   setUrl('http://localhost:8080/downloads?countryName='+selectedCountry+'&dayPart='+selectedDayParts+'&period='+selectedPeriod);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 },[selectedCountry, selectedDayParts, selectedPeriod]);
 
 useEffect(() => {
@@ -38,6 +39,7 @@ useEffect(() => {
           setIsChanging(false);
       }).catch(err =>
           console.log(err));
+          // eslint-disable-next-line react-hooks/exhaustive-deps
 },[isChanging]);
 
 let content = <div className="lds-ripple"><div></div><div></div></div>

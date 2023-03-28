@@ -17,6 +17,7 @@ const Dashboard = props => {
             setLoadedDayParts(response.data.dayParts);
             setLoadedPeriod(response.data.periodDays);
             setIsLoading(false);
+            // eslint-disable-next-line react-hooks/exhaustive-deps
         }).catch(err =>
             console.log(err))
   }, []); 

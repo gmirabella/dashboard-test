@@ -24,3 +24,10 @@ enum class PeriodDays (val days: Long) {
     LAST_MONTH (30),
     LAST_YEAR  (365);
 }
+enum class InterestType(val desc: String) {
+    MUSEUM ("Museum"),
+    PADEL ("Padel playground"),
+    VEGAN_RESTURANT("Vegan Resturant"),
+    FUN_FACT("fun fact")
+
+}

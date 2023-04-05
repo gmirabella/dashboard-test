@@ -13,7 +13,7 @@ class SuggestionServiceImpl : SuggestionService {
     override fun getSuggestions(position: Position, interestType: InterestType?): String {
 
         val prompt = "cosa c'è di interessante a queste coordinate: ${position.lat}, ${position.lon}"
-        return openAIClient.askOpenAI(prompt, "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")
+        return openAIClient.askOpenAI(prompt, "APIKEY")
     }
 
 }

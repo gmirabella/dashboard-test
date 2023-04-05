@@ -12,9 +12,15 @@ class OpenAIClient {
 
 
     fun askOpenAI(prompt: String, apiKey: String): String {
-        val url = "https://api.openai.com/v1/engines/davinci-codex/completions"
-        val data = "{\"prompt\": \"$prompt\",\"max_tokens\": 150,\"temperature\": 0.7,\"n\": 1,\"stop\": \".\"}"
-        val postData = data.toByteArray(StandardCharsets.UTF_8)
+        val url = "https://api.openai.com/v1/chat/completions"
+        val inputData = "{\n" +
+                "     \"model\": \"gpt-3.5-turbo\",\n" +
+                "     \"messages\": [{\"role\": \"user\", \"content\": $prompt}],\n" +
+                "     \"temperature\": 0.7\n" +
+                "   }"
+
+
+        val postData = inputData.toByteArray(StandardCharsets.UTF_8)
 
         val conn = URL(url).openConnection() as HttpURLConnection
         conn.requestMethod = "POST"

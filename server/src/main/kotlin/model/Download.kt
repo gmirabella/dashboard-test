@@ -20,6 +20,11 @@ data class Position(
         val lon: BigDecimal
 )
 
+data class SuggestionInput(
+    val position: Position,
+    val interestType: InterestType?
+)
+
 enum class AppId{
     IOS_MATE,
     IOS_ALLERT

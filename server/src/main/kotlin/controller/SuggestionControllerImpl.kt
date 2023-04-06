@@ -15,7 +15,7 @@ class SuggestionControllerImpl : SuggestionController{
 
     @Inject private lateinit var suggestionService: SuggestionService
 
-    private val log : Logger = LoggerFactory.getLogger(DownloadDaoImpl::class.java)
+    private val log : Logger = LoggerFactory.getLogger(this::class.java)
     override fun getSuggestions(suggestionInput: SuggestionInput): ResponseEntity<String> {
         log.info("position: ${suggestionInput.position}")
         return ResponseEntity(suggestionService.getSuggestions(suggestionInput.position, suggestionInput.interestType), HttpStatus.OK)

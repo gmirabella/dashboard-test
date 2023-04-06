@@ -15,7 +15,7 @@ class OpenAIClient {
         val url = "https://api.openai.com/v1/chat/completions"
         val inputData = "{\n" +
                 "     \"model\": \"gpt-3.5-turbo\",\n" +
-                "     \"messages\": [{\"role\": \"user\", \"content\": $prompt}],\n" +
+                "     \"messages\": [{\"role\": \"user\", \"content\": \"$prompt \"}],\n" +
                 "     \"temperature\": 0.7\n" +
                 "   }"
 

@@ -12,7 +12,7 @@ class SuggestionServiceImpl : SuggestionService {
     @Inject private lateinit var openAIClient: OpenAIClient
     override fun getSuggestions(position: Position, interestType: InterestType?): String {
 
-        val prompt = "cosa c'è di interessante a queste coordinate: ${position.lat}, ${position.lon}"
+        val prompt = "cosa posso fare di interessante vicino a queste coordinate: ${position.lat}, ${position.lon}"
         return openAIClient.askOpenAI(prompt, "APIKEY")
     }
 

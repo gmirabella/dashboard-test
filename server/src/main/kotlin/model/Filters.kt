@@ -25,9 +25,7 @@ enum class PeriodDays (val days: Long) {
     LAST_YEAR  (365);
 }
 enum class InterestType(val desc: String) {
-    MUSEUM ("Museum"),
-    PADEL ("Padel playground"),
-    VEGAN_RESTURANT("Vegan Resturant"),
+    HISTORY ("evento storico"),
     FUN_FACT("fun fact")
 
 }

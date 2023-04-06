@@ -14,7 +14,10 @@ class SuggestionServiceImpl : SuggestionService {
     @Value("\${openai.token}") private lateinit var token: String
     override fun getSuggestions(position: Position, interestType: InterestType?): String {
 
-        val prompt = "cosa posso fare di interessante vicino a queste coordinate: ${position.lat}, ${position.lon}"
+        val input = if (interestType != null)"raccontami qualche ${interestType.name}" else "cosa c'è di interessante"
+        val prompt =" $input vicino a queste coordinate: ${position.lat}, ${position.lon}"
+
+
         return openAIClient.askOpenAI(prompt, token)
     }
 
